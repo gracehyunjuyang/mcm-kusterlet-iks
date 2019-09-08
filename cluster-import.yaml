@@ -1,0 +1,38 @@
+default_admin_user: admin
+container_runtime: docker      # options: docker,containerd
+
+inception_image: ibmcom/icp-inception:latest
+# image_repo:
+# private_registry_enabled: true
+# docker_username: admin
+# docker_password: token
+
+multicluster-endpoint:
+  global:
+    clusterName: ikscluster
+    clusterNamespace: mcm-iks
+  clusterLabels:
+    environment: "Dev"
+    region: "AU"
+    datacenter: "au-mel"
+    owner: "DEV-1"
+  operator:
+    bootstrapConfig:
+      hub0:
+        name: hub0
+        secret: kube-system/klusterlet-bootstrap
+      hub1:
+        name: null
+        secret: null
+  klusterlet:
+    host: null
+  prometheusIntegration:
+    enabled: true
+  policy:
+    cemIntegration: false
+  topology:
+    enabled: true
+  serviceRegistry:
+    enabled: true
+    dnsSuffix: "mcm.svc"
+    plugins: "kube-service"
